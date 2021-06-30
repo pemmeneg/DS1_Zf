@@ -1,0 +1,168 @@
+%! Author = Philipp Emmenegger
+%! Date = 30/06/2021
+
+\section{Introduction}
+\subsection{Distributed Systems Definition}
+A distributed system in its simplest definition is a group of computers working together as to appear as a single computer to the user.
+\subsection{Why Distributed Systems}
+\begin{itemize}
+    \item Scaling
+    \begin{itemize}
+        \item Vertical: more memory, faster CPU
+        \item Horizontal: more machines
+    \end{itemize}
+    \item Economics
+    \begin{itemize}
+        \item Initially scaling vertically is cheaper until max HW
+        \item Current x86 max: 64 cores
+    \end{itemize}
+    \item Location
+    \begin{itemize}
+        \item Everything gets faster, latency stays
+        \item Physically bounded by the speed of light
+        \item New Protocols can decrease RT
+        \item Place services closer to user
+    \end{itemize}
+    \item Fault tolerance
+    \begin{itemize}
+        \item Every hardware will crash eventually
+    \end{itemize}
+\end{itemize}
+\subsection{Scaling}
+\subsubsection{Horizontal}
+\textbf{Pros}
+\begin{itemize}
+    \item Lower cost with massive scale
+    \item Easier to add fault-tolerance
+    \item Higher availability
+\end{itemize}
+\textbf{Cons}
+\begin{itemize}
+    \item Adaption of software required
+    \item More complex system, more components involved
+\end{itemize}
+
+\subsubsection{Vertical}
+\textbf{Moore's Law: }Nr. of transistors doubles every 2 years.\\
+\textbf{Nielsen's Law:} High-end user's connection speed grows by 50\% per year.\\
+\textbf{Kryder's Law:} Disk density doubling every 13 month.\\
+\textit{Bandwidth grows slower than computer power}\\
+\textbf{Pros}
+\begin{itemize}
+    \item Lower cost with small scale
+    \item No adaption of software required
+    \item Less administrative effort
+\end{itemize}
+\textbf{Cons}
+\begin{itemize}
+    \item HW limits for scaling
+    \item Risk of HW failure causing outage
+    \item More difficult to add fault tolerance
+\end{itemize}
+
+\subsection{Distributed Systems Categorization}
+\textbf{Tightly Coupled}
+\begin{itemize}
+    \item Processing Elements have access to a common memory
+\end{itemize}
+\textbf{Loosely Coupled (this lecture)}
+\begin{itemize}
+    \item Processing Elements have NO access to a common memory
+\end{itemize}
+\textbf{Homogenous System}
+\begin{itemize}
+    \item All processors are of the same type
+\end{itemize}
+\textbf{Heterogeneous System (this lecture)}
+\begin{itemize}
+    \item Processors of different types
+\end{itemize}
+\textbf{Small Scale}
+\begin{itemize}
+    \item WebApp + database
+\end{itemize}
+\textbf{Large Scale (this lecture)}
+\begin{itemize}
+    \item More than 2 machines
+\end{itemize}
+\textbf{Decentralized}
+\begin{itemize}
+    \item Distributed in the technical sense, but not owned by one actor
+\end{itemize}
+
+\subsubsection{Controlled Distributed Systems}
+\begin{itemize}
+    \item 1 responsible organization
+    \item Low churn
+    \item Secure environment
+    \item High availability
+    \item Homogenous / Heterogeneous
+    \item Examples: Amazon DynamoDB, Client/Server
+\end{itemize}
+\textbf{Mechanisms that work well:}
+\begin{itemize}
+    \item Consistent hashing
+    \item Master nodes, central coordinator
+\end{itemize}
+\textbf{Network is under control or client/server}
+\begin{itemize}
+    \item no NAT issues
+\end{itemize}
+\textbf{Consistency}
+\begin{itemize}
+    \item Leader election (Zookeeper, Paxos, Raft)
+\end{itemize}
+\textbf{Replication principles}
+\begin{itemize}
+    \item More replicas: higher availability / reliability / performance / scalability
+    \item Requires maintaining consistency in replicas
+\end{itemize}
+\textbf{Transparency principles apply}
+
+\subsubsection{Fully Decentralized Systems}
+\begin{itemize}
+    \item N responsible organizations
+    \item High churn
+    \item Hostile environment
+    \item Unpredictable availability
+    \item Heterogeneous
+    \item Examples: BitTorrent, Blockchain
+\end{itemize}
+\textbf{Mechanisms that work well:}
+\begin{itemize}
+    \item Consistent hashing (DHTs)
+    \item Flooding/broadcasting - Bitcoin
+\end{itemize}
+\textbf{NAT and direct connectivity huge problem}\\
+\textbf{Consistency}
+\begin{itemize}
+    \item Weak consistency: DHTs
+    \item Proof of work
+\end{itemize}
+\textbf{Replication / Transparency principles apply}
+
+\subsubsection{CAP theorem}
+A distributed data store cannot simultaneously be consistent, available and partition tolerant.
+\begin{itemize}
+    \item \textbf{Consistency:} Every node has the same consistent state
+    \item \textbf{Availability:} Every non-failing node always returns a response
+    \item \textbf{Partition Tolerant:} The system continues to be consistent even when network partitions
+\end{itemize}
+\textbf{Examples:}
+\begin{itemize}
+    \item Network partition: AP or CP
+    \item Blockchain: CP or AP
+    \item Cassandra (Apple): AP, can be configured CP
+\end{itemize}
+
+\subsection{Transparency in DS}
+\textbf{Distributed system should hide its distributed nature}
+\begin{itemize}
+    \item Location: users should not be aware of the physical location
+    \item Access: users should access resources in a single, uniform way
+    \item Migration, relocation: users should not be aware, that resources have moved
+    \item Replication: Users should not be aware about replicas, it should appear as a single resource
+    \item Concurrency: users should not be aware of other users
+    \item Failure: Users should be aware of recovery mechanisms
+    \item Security: Users should be minimally aware of security mechanisms
+\end{itemize}
