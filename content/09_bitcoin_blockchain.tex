@@ -1,0 +1,230 @@
+%! Author = Philipp Emmenegger
+%! Date = 01/07/2021
+
+\section{Bitcoin / Blockchain}
+\textbf{Bitcoin}
+\begin{itemize}
+    \item Experimental digital currency
+    \item Fully P2P, no central entity
+    \item Maximum of 21 million BTC
+    \item Every transaction broadcast to all peers
+    \item Validation by proof-of-work (partial hash collision)
+\end{itemize}
+\subsection{Bitcoint Introduction}
+\begin{itemize}
+    \item Not relying on trust, but strong cryptography
+    \item Weak anonymity (pseudonimity)
+    \begin{itemize}
+        \item All peers know all transactions
+        \item Clustering: if a transaction has multiple input addresses, assume those addresses belong to the same wallet
+    \end{itemize}
+    \item Not controlled by a single entity
+    \item \textbf{BIP:} Bitcoin Improvement Proposals
+    \item Can be exchanged for real currencies
+\end{itemize}
+
+\subsubsection{Mechanism}
+\textbf{Wallet}
+\begin{itemize}
+    \item Has public-private keys (wallet.dat)
+    \item Public key, ECDSA 256 bit = bitcoin address
+    \item Simple address = base58(RIPEM160(Sha256(ecdsa public key)))
+    \item Private key used for signing transactions
+\end{itemize}
+\textbf{Transaction}
+\begin{itemize}
+    \item Peer A wants to send BTC to B, creates transaction message
+    \item Transaction contains input / output
+    \begin{itemize}
+        \item source / destination of BTC
+    \end{itemize}
+    \item Peer A broadcasts the transaction to all peers
+    \item Transaction stored in blocks, block created / verified in $\sim$ 10min
+\end{itemize}
+
+\subsubsection{Key Bitcoin Operations}
+\textbf{Private Key authorizes the transaction}
+\begin{itemize}
+    \item If keys are stolen, thief may use your coins
+    \item If keys are lost, coins are lost
+    \item In UTXO (unspent transaction output) systems, complete output is spent
+\end{itemize}
+\includegraphics[width=\linewidth]{../img/bitcoin_transaction.png}
+\textbf{Avoiding Double spending}
+\begin{itemize}
+    \item Transactions in blocks are confirmed
+    \item Guessing value that results in zero bits
+    \item Chained proofs of work
+\end{itemize}
+
+\subsection{Blockchain}
+\begin{itemize}
+    \item Transactions are collected in blocks
+    \item New Block every 10min
+    \item Blocks contain solved crypto puzzles
+    \begin{itemize}
+        \item Partial hash collisions
+    \end{itemize}
+    \item A block has a pointer to a previous block
+    \item Creation of blocks is called mining
+\end{itemize}
+
+\subsubsection{Mining}
+\begin{itemize}
+    \item Creating valid blocks
+    \item Different level of confirmations
+    \begin{itemize}
+        \item 3-6 block conf. is considered secure
+    \end{itemize}
+    \item Dangerous if someone has more than 50\% computing power
+    \begin{itemize}
+        \item could exclude and modify the ordering of transactions
+    \end{itemize}
+\end{itemize}
+
+\subsection{Discussion}
+\textbf{Advantages}
+\begin{itemize}
+    \item Low (fixed) tx fees
+    \item Scalable (faster HW/Storage)
+    \item Anonymity: No privacy concerns
+    \item No major crashes
+    \item Decentralized
+    \item Many other blockchain use cases
+    \begin{itemize}
+        \item Smart contracts
+    \end{itemize}
+\end{itemize}
+\textbf{Disadvantages}
+\begin{itemize}
+    \item Power consumption (as much as Netherlands)
+    \item Not scalable: 5 transactions per sec
+    \item Anonymity: used for illegal activities
+\end{itemize}
+
+\subsection{51\% Attack}
+If a majority of CPU power is controlled by honest nodes, the honest chain will grow the fastest and outpace any competing chains.\\
+\textbf{PoW:} Majority of hashing power\\
+\textbf{PoS:} Majority of coins\\
+\textbf{Double spend / rollback transactions}
+\begin{itemize}
+    \item X is an exchange
+    \item Mine secretly, Y is your address
+    \item X arrived - payout (1 block conf.)
+    \item You mine faster, broadcast secret chain
+    \item Tx F \textrightarrow X: 15 never happened, goes to Y
+\end{itemize}
+\includegraphics[width=0.6\linewidth]{../img/51_percent_attack.png}
+
+\subsection{Bitcoin vs. Ethereum}
+\textbf{Bitcoin}
+\begin{itemize}
+    \item Implementing new features slow
+    \item Bitcoin Script limited
+    \item Pros and Cons - no silver bullet
+\end{itemize}
+\textbf{Ethereum}
+\begin{itemize}
+    \item Generalized blockchain
+    \item Protocols designed from scratch
+    \item Mining reward (block every 14s): $\sim$ 2 ETH
+\end{itemize}
+
+\subsection{Ethereum}
+\subsubsection{Blocktime and Gas}
+\begin{itemize}
+    \item Gas Price set by Miner
+    \item Miner decides which transaction at which gas price to include
+    \begin{itemize}
+        \item Market for transaction
+    \end{itemize}
+    \item Gas price too low, longer waiting time until TX will be included
+    \item Block time: 14-15s
+    \item Smart Contracts are turing complete
+    \begin{itemize}
+        \item Every instruction needs to be paid for
+    \end{itemize}
+    \item Gas price / Gas limit by miners
+    \begin{itemize}
+        \item If you run out of gas, state is reverted, ETH gone
+    \end{itemize}
+\end{itemize}
+
+\subsection{Smart Contract (ETH)}
+\begin{itemize}
+    \item For now, proof of work
+    \item Every contract is run on every full Ethereum node
+    \begin{itemize}
+        \item Result on every node is the same
+        \item Global computer, always running, always correct
+    \end{itemize}
+    \item Account-based
+    \begin{itemize}
+        \item External accounts: controlled by private keys
+        \item Contract accounts: never executed on their own
+        \begin{itemize}
+            \item controlled by code
+            \item All action fired from externally controlled accounts
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Account-based vs. UTXO-based}
+\textbf{Account-based}
+\begin{itemize}
+    \item Global state stores a list of accounts with balances and code
+    \item Transaction is valid if the sending account has enough balance
+    \item If the receiving account has code, the code runs, and state may be changed
+    \begin{itemize}
+        \item Signature must match sending account
+    \end{itemize}
+\end{itemize}
+\includegraphics[width=0.6\linewidth]{../img/account-based.png}
+\begin{itemize}
+    \item Large space savings
+    \begin{itemize}
+        \item One input - one output - one signature
+    \end{itemize}
+    \item Simplicity
+    \begin{itemize}
+        \item Easier to code and understand
+        \item Easier for smart contracts (stateful scripting language)
+    \end{itemize}
+\end{itemize}
+\textbf{UTXO-based}
+\begin{itemize}
+    \item Every reference input must be valid and not yet spent
+    \item Total value of the inputs must equal or exceed the total value of the outputs
+    \begin{itemize}
+        \item you always spend all outputs
+    \end{itemize}
+    \item Transaction must have a signature matching the owner of the input for every input
+    \begin{itemize}
+        \item Script determines if input is valid
+    \end{itemize}
+\end{itemize}
+\includegraphics[width=0.6\linewidth]{../img/utxo_based.png}
+\begin{itemize}
+    \item Higher degree of privacy
+    \begin{itemize}
+        \item New address for each TX
+        \item No replay attacks - no nonce required
+        \item Allows transactions to be processed in parallel
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Security Considerations}
+\begin{enumerate}
+    \item Reentrancy
+    \item Access Control
+    \item Arithmetic Issues
+    \item Unchecked Return Values for low level calls
+    \item Denial of Service
+    \item Bad Randomness
+    \item Front Running
+    \item Time Manipulation
+    \item Short Address Attack
+\end{enumerate}
+
+\subsection{Solidity}
+mümmer das chöne?

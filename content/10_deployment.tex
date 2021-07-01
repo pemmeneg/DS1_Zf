@@ -1,0 +1,65 @@
+%! Author = Philipp Emmenegger
+%! Date = 01/07/2021
+
+\section{Deployment}
+\subsection{Kubernetes K8s}
+\begin{itemize}
+    \item Container orchestration (docker)
+    \item Automated deployment, scaling
+    \item Started by Google, now with CNCF
+\end{itemize}
+\textbf{Why Kubernetes?}
+\begin{itemize}
+    \item Containers can crash
+    \item Machine that runs container can crash (out of memory)
+    \item Kubernetes manages the lifecycle of containers
+\end{itemize}
+
+\subsubsection{Design Principles}
+\begin{itemize}
+    \item Configuration is declarative (YAML/JSON)
+    \item Abstraction layer for distribution system
+    \begin{itemize}
+        \item Provides interface to interact with containers
+    \end{itemize}
+    \item Immutable containers
+    \begin{itemize}
+        \item Don't store state in containers
+        \item Kubernetes replaces container if health check fails
+    \end{itemize}
+\end{itemize}
+\textbf{Pod:} one (or more close connected) container (long running)
+\begin{itemize}
+    \item Job: short running
+    \item Volume: directory accessible to all containers in a Pod
+\end{itemize}
+\textbf{Deployment:} define scale, HW limits\\
+\textbf{Service:} single entry point (internal)\\
+\textbf{Ingress:} expose end points / external access\\
+\textbf{Namespaces:} run multiple projects on one cluster, separate with namespaces\\
+\textbf{StatefulSets:} when running a DB\\
+\textbf{DaemonSets:} placement of pods\\
+\textbf{Minikube, k3s}
+\begin{itemize}
+    \item Kubernetes master / server / control plane
+    \item Kubernetes worker / nodes / agent / compute machine
+\end{itemize}
+
+\subsection{Docker Swarm}
+\begin{itemize}
+    \item Group multiple docker nodes
+    \item Deploy with docker-compose.yaml (deploy:)
+    \item Similar base architecture: swarm manager / swarm nodes
+    \item Built into docker
+    \begin{itemize}
+        \item \textit{docker swarm}: manage swarm
+        \item \textit{docker node}: manage nodes
+    \end{itemize}
+    \item Scheduler is responsible for placement of containers to nodes
+\end{itemize}
+\textbf{Docker Swarm vs. Kubernetes}
+\begin{itemize}
+    \item Kubernetes is used more often
+    \item Kubernetes supports higher demands with more complexity
+    \item Docker Swarm offers a simple solution, quick to get started with
+\end{itemize}
