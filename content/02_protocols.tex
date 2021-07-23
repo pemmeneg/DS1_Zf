@@ -4,7 +4,7 @@
 \section{Protocols}
 \subsection{Networking Layers}
 \textbf{Goal:} Interoperability\\
-\includegraphics[width=0.6\linewidth]{../img/osi_model.png}
+\includegraphics[width=0.6\linewidth]{img/osi_model.png}
 
 \subsubsection{Layer Abstraction}
 \begin{itemize}
@@ -14,7 +14,7 @@
     \item Each PDU contains a header and payload, the service data unit (SDU)
 \end{itemize}
 \textbf{Example PDU of L3:}\\
-\includegraphics[width=0.6\linewidth]{../img/pdu.png}
+\includegraphics[width=0.6\linewidth]{img/pdu.png}
 
 \subsection{Layer 4 - Transport}
 \subsubsection{TCP}
@@ -60,7 +60,7 @@
 
 \subsubsection{TCP + TLS}
 \textbf{TLS \textless 1.3}
-\includegraphics[width=0.7\linewidth]{../img/tcp_tls.png}
+\includegraphics[width=0.7\linewidth]{img/tcp_tls.png}
 \begin{enumerate}
     \item client hello - lists crypto information, TLS version, ciphers/keys
     \item server hello - chosen cipher, session ID, random bytes, digital certificate
@@ -83,7 +83,7 @@
     \item 1 RTT (0 RTT for know connections)
     \item Built in security
 \end{itemize}
-\includegraphics[width=0.8\linewidth]{../img/quic.png}
+\includegraphics[width=0.8\linewidth]{img/quic.png}
 \begin{itemize}
     \item Multiplexing in HTTP/2
     \item QUIC can multiplex requests: one stream does not affect others
